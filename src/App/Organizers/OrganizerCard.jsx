@@ -16,9 +16,9 @@ const OrganizerCard = ({ organizer }) => {
             </div>
             <div>
                 <h1 className="font-bold text-[17px] mt-2">{name}</h1>
-                <p className="text-slate-500">{role}</p>
+                <p className="text-slate-500 font-bold">{role}</p>
             </div>
-            <div className="flex gap-3 justify-center mt-3">
+            {/* <div className="flex gap-3 justify-center mt-3">
                 {social.facebook && (
                     <a href={social.facebook}>
                         <svg
@@ -51,8 +51,8 @@ const OrganizerCard = ({ organizer }) => {
                         </svg>
                     </a>
                 )}
-                {/* يمكنك إضافة أيقونات أخرى هنا مثل GitHub أو Behance */}
-            </div>
+                
+            </div> */}
         </div>
     );
 };

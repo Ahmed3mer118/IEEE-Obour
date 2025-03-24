@@ -92,7 +92,7 @@ const events = [
 
 
 const EventCard = ({ date, title, image, link }) => (
-    <div className="box text-center border m-[20px] p-[15px] shadow-xl rounded-xl relative flex flex-col justify-between">
+    <div className="box text-center border m-[15px] p-[15px] shadow-xl rounded-xl relative flex flex-col justify-between ">
         <img
             src={image}
             alt="post"
@@ -101,12 +101,12 @@ const EventCard = ({ date, title, image, link }) => (
         />
 
         <div className="mt-[20px]">{date}</div>
-        <h1 className="font-bold mt-[20px]">{title}</h1>
-        <div className="mt-[10px] p-[20px] relative flex-grow">
+        <h1 className="font-bold mt-[15px]">{title}</h1>
+        <div className="mt-[10px] p-[20px] flex-grow ">
             <Link
                 to={link}
                 target="_blank"
-                className=" bg-[#243b53] text-[#fff] p-[10px] rounded-lg  block text-center"
+                className=" bg-[#243b53] text-[#fff] absolute bottom-[10px] left-[30%] translate-x-0 p-[10px] rounded-lg  block text-center"
             >
                 Read More
             </Link>
@@ -121,7 +121,7 @@ const PostEvents = () => {
                 <h1 className="text-center text-[40px] font-bold">
                     Past <span className="text-blue-700">Events</span>
                 </h1>
-                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-[10px]">
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
                     {events.map((event, index) => (
                         <EventCard key={index} {...event} />
                     ))}
