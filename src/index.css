@@ -1,0 +1,143 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+    --grey-800: #243b53;
+    --fixed-width: 500px;
+    --borderRadius: 0.25rem;
+    --grey-500: #627d98;
+    --grey-900: #102a43;
+    --transition: 0.3s ease-in-out all;
+    --fluid-width: 90vw;
+    --primary-500: #0077FF;
+    --white: #fff;
+    --red-dark: #842029;
+}
+
+body {
+    /* background-color: #F0F7FF; */
+    background-color: var(--white);
+    font-family: 'Poppins', sans-serif;
+    overflow-x: hidden;
+}
+
+@media (min-width: 1023px) {
+    .wrapper {
+        display: none;
+    }
+}
+
+/*& .slick-list {*/
+/*    margin: 0 -7px;*/
+
+/*    & .slick-slide>div {*/
+/*        padding: 0 10px;*/
+/*    }*/
+/*}*/
+
+.sidebar-cont {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: -1;
+    opacity: 0;
+    transition: var(--transition);
+}
+
+.show-sidebar {
+    z-index: 99;
+    opacity: 1;
+}
+
+.content {
+    background: var(--white);
+    width: var(--fluid-width);
+    height: 95vh;
+    border-radius: var(--borderRadius);
+    padding: 4rem 2rem;
+    position: relative;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.close-btn {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background: transparent;
+    border-color: transparent;
+    font-size: 2rem;
+    color: var(--red-dark);
+    cursor: pointer;
+}
+
+.nav-links {
+    padding-top: 2rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.nav-link {
+    display: flex;
+    align-items: center;
+    color: var(--grey-500);
+    padding: 1rem 0;
+    text-transform: capitalize;
+    transition: var(--transition);
+}
+
+.nav-link:hover {
+    color: var(--grey-900);
+}
+
+.nav-link:hover .icon {
+    color: var(--primary-500);
+}
+
+.icon {
+    font-size: 1.5rem;
+    margin-right: 1rem;
+    display: grid;
+    place-items: center;
+    transition: var(--transition);
+}
+
+.active {
+    color: var(--grey-900);
+}
+
+.active .icon {
+    color: var(--primary-500);
+}
+
+.side-content {
+    height: calc(100vh - 88px);
+    width: 350px;
+}
+
+.content-area {
+    width: calc(100% - 350px);
+}
+
+@media (max-width: 1023px) {
+    .content-area {
+        width: 100%;
+    }
+}
+
+@media (min-width: 1250px) {
+  .container {
+    max-width: 1200px;
+  }
+}
+
+.slick-slide {
+    padding: 0 10px; /* Adjust the padding value as needed */
+}

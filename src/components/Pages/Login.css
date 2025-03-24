@@ -1,0 +1,194 @@
+
+.body {
+    height: 100vh;
+    background-image: url('/images/background.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    overflow: hidden;
+}
+
+.custom-container {
+    display: flex;
+}
+
+.img2 {
+    margin: 3rem;
+}
+.logcontainer {
+    width: 793px;
+    height: 744px;
+    border-radius: 27px;
+    background: #FFF;
+    box-shadow: 50px 50px 20px 0px rgba(0, 0, 0, 0.25);
+    position: absolute;
+    left: 47rem;
+    display: flex;
+    align-content: center;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.textlog {
+    display: flex;
+    flex-direction: column;
+    gap: 55px;
+
+}
+.tex1{
+    font-size: 4rem;
+}
+
+form .data{
+    height: 45px;
+    width: 100%;
+    margin: 40px 0;
+}
+form .data label{
+    font-size: 18px;
+}
+form .data input{
+    height: 100%;
+    width: 100%;
+    padding-left: 10px;
+    font-size: 17px;
+    border: 1px solid silver;
+}
+form .data input:focus{
+    border-color: #3498db;
+    border-bottom-width: 2px;
+}
+form .forgot-pass{
+    margin-top: -8px;
+}
+form .forgot-pass a{
+    color: #3498db;
+    text-decoration: none;
+}
+form .forgot-pass a:hover{
+    text-decoration: underline;
+}
+
+form .btn:hover .inner{
+    left: 0;
+}
+form .btn button{
+    display: flex;
+    width: 448px;
+    height: 49px;
+    padding: 20px;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    border-radius: 10px;
+    background: #0577AB;
+    cursor: pointer;
+    border-color: #0577AB;
+    font-size: 30px;
+    color: white;
+}
+form .signup-link{
+    text-align: center;
+    bottom: 3rem;
+    position: absolute;
+    left: 21rem;
+}
+form .signup-link a{
+    color: #3498db;
+    text-decoration: none;
+}
+form .signup-link a:hover{
+    text-decoration: underline;
+}
+form .signup-link {
+    text-align: center;
+    /*bottom: 0.1rem;*/
+    /*position: absolute;*/
+    /*left: 4rem;*/
+
+    /*top: 555px;*/
+}
+@media only screen and (max-width: 768px) {
+    .logcontainer {
+        width: auto;
+        left: 2rem;
+        right: 2rem;
+    }
+
+    .signup-link {
+        left: 9rem;
+    }
+
+    .btn button {
+        width: 100%;
+    }
+}
+
+@media only screen and (max-width: 480px) {
+    .logcontainer {
+        height: auto;
+        padding: 2rem;
+    }
+
+    .signup-link {
+        bottom: 1rem;
+        left: 4rem;
+    }
+
+    .btn button {
+        height: auto;
+    }
+}
+
+@media only screen and (max-width: 480px) {
+    .logcontainer {
+
+        position: absolute;
+        bottom: -247px;
+        width: 325px;
+        height: 590px;
+        left: -2px;
+
+    }
+    form .data label {
+        font-size: 18px;
+        position: relative;
+        left: 3px;
+    }
+    .img2 {
+        /* FONT-VARIANT: JIS04; */
+        width: 214px;
+    }
+    form .forgot-pass a {
+        color: #3498db;
+        text-decoration: none;
+        margin-left: 3;
+        position: relative;
+        left: 47px;
+    }
+    .signup-link {
+        bottom: 1rem;
+        left: 4rem;
+    }
+    form .btn button{
+        display: flex;
+        width: 242px;
+        height: 49px;
+        padding: 20px;
+        justify-content: center;
+        align-items: center;
+        gap: 8px;
+        border-radius: 10px;
+        background: #0577AB;
+        cursor: pointer;
+        border-color: #0577AB;
+        font-size: 30px;
+        color: white;
+        position: absolute;
+        left: 42px;
+    }
+
+    .btn button {
+        height: auto;
+    }
+}
