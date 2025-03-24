@@ -12,7 +12,7 @@ const BranchPhotos = () => {
     const [photos] = useState([photo2, photo8, photo4, photo5, photo7, photo6]);
 
     return (
-        <section className="branch-photo mt-16 mb-16">
+        <section className="branch-photo mt-16 mb-16 p-[40px]">
             <h1 className="text-center text-4xl font-bold mb-8">
                 Branch <span className="text-blue-700">Photos</span>
             </h1>

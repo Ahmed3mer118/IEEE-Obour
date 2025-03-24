@@ -116,12 +116,12 @@ const EventCard = ({ date, title, image, link }) => (
 
 const PostEvents = () => {
     return (
-        <section className="post-events mt-[80px] mb-[80px]">
+        <section className="post-events mt-[80px] mb-[80px] p-[40px]">
             <div className="container mx-auto mt-[10px] mb-[10px]">
                 <h1 className="text-center text-[40px] font-bold">
                     Past <span className="text-blue-700">Events</span>
                 </h1>
-                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 ">
                     {events.map((event, index) => (
                         <EventCard key={index} {...event} />
                     ))}
