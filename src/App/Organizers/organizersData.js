@@ -2,6 +2,17 @@
 const organizersData = [
     {
         id: 1,
+        name: "Dr Ibrahim Gomaa",
+        role: "Branch's Counselor",
+        image: "/images/dr-ibrahim.jpg",
+        social: {
+            facebook: "",
+            linkedin: "",
+            github: "",
+        }
+    },
+    {
+        id: 1,
         name: "Doha Emam",
         role: "Chairwoman",
         image: "/images/doha-emam.jpg",
