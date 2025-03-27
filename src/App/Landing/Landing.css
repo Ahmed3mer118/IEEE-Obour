@@ -35,8 +35,8 @@
     }
     .home-page .container{
         position: absolute;
-        top: 10%;
-        left: 10%;
+        /* top: 10%; */
+        /* left: 10%; */
  
     }
     .home-page .container .title{
