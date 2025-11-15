@@ -1,8 +1,35 @@
 import React from "react";
-import post from "/images/past.png";
 import { Link } from "react-router-dom";
 
 const events = [
+    {
+        date: "NOV 2, 2025",
+        title: " TechUpWomen 2025",
+        locationEvent: "The Greek Campus",
+        image: "/images/events/TechUoWomen.jpg",
+        link: "https://www.facebook.com/share/p/1D5S13EU5Y/",
+    },
+    {
+        date: "OCT 21, 2025",
+        title: "Gemini",
+        locationEvent: "Online",
+        image: "/images/events/gemini.jpg",
+        link: "https://www.facebook.com/share/p/1HJbJRT3cw/",
+    },
+    {
+        date: "OCT 16, 2025",
+        title: "Welcome Day 2026",
+        locationEvent: "Obour University",
+        image: "/images/events/welcomday2026.jpg",
+        link: "https://www.facebook.com/share/p/1ZXrx8VLxB/",
+    },
+    {
+        date: "OCT 2, 2025",
+        title: "IEEE Day 2025",
+        locationEvent: "Horse University",
+        image: "/images/events/ieeeDay.jpg",
+        link: "https://www.facebook.com/share/p/17hd22EwWT/",
+    },
     {
         date: "MAR 7, 2025",
         title: "FawazIEEEr Ramadan",
@@ -17,7 +44,6 @@ const events = [
         image: "/images/event2_1.jpg",
         link: "https://fb.me/e/4vttguR3v",
     },
-
     {
         date: "FEB 15, 2025",
         title: "IEEE Egyption Student Branch Officers Meeting Q1",

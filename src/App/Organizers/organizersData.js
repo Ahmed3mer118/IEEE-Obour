@@ -4,18 +4,7 @@ const organizersData = [
         id: 1,
         name: "Dr Ibrahim Gomaa",
         role: "Branch's Counselor",
-        image: "/images/dr-ibrahim.jpg",
-        social: {
-            facebook: "",
-            linkedin: "",
-            github: "",
-        }
-    },
-    {
-        id: 1,
-        name: "Doha Emam",
-        role: "Chairwoman",
-        image: "/images/doha-emam.jpg",
+        image: "/images/team/dr-ibrahim.jpg",
         social: {
             facebook: "",
             linkedin: "",
@@ -24,9 +13,9 @@ const organizersData = [
     },
     {
         id: 2,
-        name: "Mohamed Amer",
-        role: "Vice Chair",
-        image: "/images/Mohamed-3Amer.jpg",
+        name: "Doha Emam",
+        role: "Adviser",
+        image: "/images/team/doha-emam.jpg",
         social: {
             facebook: "",
             linkedin: "",
@@ -35,9 +24,9 @@ const organizersData = [
     },
     {
         id: 3,
-        name: "Ahmed Elshenawi",
-        role: "Secretary",
-        image: "/images/Ahmed_Elshenawi.jpg",
+        name: "Ahmed Amer",
+        role: "Chairman",
+        image: "/images/team/Ahmed_Amer.jpeg",
         social: {
             facebook: "",
             linkedin: "",
@@ -46,9 +35,9 @@ const organizersData = [
     },
     {
         id: 4,
-        name: "Kareem Khaled",
-        role: "Treasurer",
-        image: "/images/Kareem Khaled.jpg",
+        name: "Nadia Arafa",
+        role: "Vice Chair",
+        image: "/images/team/Nadia_Arafa.jpg",
         social: {
             facebook: "",
             linkedin: "",
@@ -57,9 +46,9 @@ const organizersData = [
     },
     {
         id: 5,
-        name: "Abdallah Essam",
-        role: "Flutter Leader",
-        image: "/images/Abdalluh Essam.jpg",
+        name: "Lana Mansour",
+        role: "Secretary",
+        image: "/images/team/Lana Mansuoor.jpg",
         social: {
             facebook: "",
             linkedin: "",
@@ -68,9 +57,9 @@ const organizersData = [
     },
     {
         id: 6,
-        name: "Menna Allah Omar",
-        role: "Flutter Vice Lead",
-        image: "/images/Menna_omar.jpg",
+        name: "Mohammed sherif",
+        role: "Treasurer",
+        image: "/images/team/mohammedsherif.jpeg",
         social: {
             facebook: "",
             linkedin: "",
@@ -79,9 +68,9 @@ const organizersData = [
     },
     {
         id: 7,
-        name: "Omar Khaled",
+        name: "Abd-Elrahman Waleed",
         role: "UI/UX Leader",
-        image: "/images/Omar_khaled.jpg",
+        image: "/images/team/abdelrhman.jpeg",
         social: {
             facebook: "",
             linkedin: "",
@@ -90,9 +79,9 @@ const organizersData = [
     },
     {
         id: 8,
-        name: "Ahmed Hussein",
+        name: "Noura Moataz",
         role: "UI/UX Vice_Lead",
-        image: "/images/Ahmed_Hussein.jpg",
+        image: "/images/team/Noura-Moataz.jpg",
         social: {
             facebook: "",
             linkedin: "",
@@ -101,22 +90,20 @@ const organizersData = [
     },
     {
         id: 9,
-        name: "Ahmed Amer",
+        name: "Abdullah El-Sayed",
         role: "Front_End Leader",
-        image: "/images/Ahmed_Amer.jpeg",
+        image: "/images/team/Abdullah-Anwer.jpg",
         social: {
             facebook: "",
             linkedin: "",
             github: "",
         }
     },
-
-
     {
         id: 10,
-        name: "Khaled Ibrahem",
-        role: "Game Dev Leader",
-        image: "/images/khaled Ibrahem.jpg",
+        name: "Gehan Fathy",
+        role: "Cyber security Leader",
+        image: "/images/team/Gehan-Fathy.jpeg",
         social: {
             facebook: "",
             linkedin: "",
@@ -125,9 +112,9 @@ const organizersData = [
     },
     {
         id: 11,
-        name: "Mohab Galal",
-        role: "Game Dev Vice_Lead",
-        image: "/images/Mohab_Galal.jpeg",
+        name: "Ahmed Anwer",
+        role: "Data Analysis Leader",
+        image: "/images/team/Ahmed-anwer.jpeg",
         social: {
             facebook: "",
             linkedin: "",
@@ -136,9 +123,9 @@ const organizersData = [
     },
     {
         id: 12,
-        name: "Ahmed Khater",
-        role: "HR Leader",
-        image: "/images/Ahmed_Khater.jpg",
+        name: "Menna Allah Ahmed Abdullah",
+        role: "Data Analysis Vice_Lead",
+        image: "/images/team/menna.jpeg",
         social: {
             facebook: "",
             linkedin: "",
@@ -147,9 +134,9 @@ const organizersData = [
     },
     {
         id: 13,
-        name: "Abdullah Mohamed",
-        role: "HR Vice_Lead",
-        image: "/images/Seif.jpg",
+        name: "Omar Muhammed",
+        role: "Backend Leader",
+        image: "/images/team/Omar-Muhammed.jpeg",
         social: {
             facebook: "",
             linkedin: "",
@@ -158,9 +145,9 @@ const organizersData = [
     },
     {
         id: 14,
-        name: "Kareem Khaled",
-        role: "PR Mentor",
-        image: "/images/Kareem Khaled.jpg",
+        name: "Ahmed Saed",
+        role: "Backend Vice_Lead",
+        image: "/images/team/ahmed-Saed.jpeg",
         social: {
             facebook: "",
             linkedin: "",
@@ -169,9 +156,9 @@ const organizersData = [
     },
     {
         id: 15,
-        name: "Lana Mansour",
-        role: "PR Leader",
-        image: "/images/Lana Mansuoor.jpg",
+        name: "Rahma Sherif ",
+        role: "HR Leader",
+        image: "/images/team/Rahma-Sherif.jpg",
         social: {
             facebook: "",
             linkedin: "",
@@ -180,9 +167,9 @@ const organizersData = [
     },
     {
         id: 16,
-        name: "Aliaa Mahmoud ",
-        role: "Media Mentor",
-        image: "/images/Aliaa_Sabek.jpg",
+        name: "Nancy Fawzy",
+        role: "PR Leader",
+        image: "/images/team/Nancy-Fawzy.jpeg",
         social: {
             facebook: "",
             linkedin: "",
@@ -191,39 +178,15 @@ const organizersData = [
     },
     {
         id: 17,
-        name: "Ahmed Sherif",
-        role: "Media Mentor",
-        image: "/images/shefoo.jpg",
-        social: {
-            facebook: "",
-            linkedin: "",
-            github: "",
-        }
-    },
-    {
-        id: 18,
-        name: "Anas Tahoon",
+        name: "Aya Mostafa Ahmed",
         role: "Media Leader",
-        image: "/images/Anas_Tahoon.jpg",
+        image: "/images/team/Aya-Elsawaf.jpg",
         social: {
             facebook: "",
             linkedin: "",
             github: "",
         }
     },
-    {
-        id: 19,
-        name: "Nadia Arafa",
-        role: "Media Vice_Lead",
-        image: "/images/Nadia_Arafa.jpg",
-        social: {
-            facebook: "",
-            linkedin: "",
-            github: "",
-        }
-    },
-  
-
 ];
 
 export default organizersData;
