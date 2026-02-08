@@ -46,3 +46,11 @@ const WhatWeDo = () => {
 };
 
 export default WhatWeDo;
+
+    // const event = {
+    //     _id: "65f8a1b2c3d4e5f678901234", // ID حقيقي من قاعدة البيانات
+    //     date: "APR 14-15-16, 2025 ",
+    //     title: "SPEAKER SESSION - Competition",
+    //     mainTitle: "Code Craft Hackathon II",
+    //     description: "Code Craft is set to host its second hackathon, a 3-day event featuring four key technology tracks: Flutter, Frontend, Game Development, and UI/UX Design. Participants will compete to create innovative solutions while showcasing their skills. The event will also include talks from expert speakers, offering valuable insights. At the end, the top three teams in each track will be recognized for their outstanding performance."
+    // };

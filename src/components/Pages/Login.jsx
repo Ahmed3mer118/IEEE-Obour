@@ -3,7 +3,6 @@ import { useAppContext } from "../../store/AppContext.jsx";
 import { useEffect, useRef } from "react";
 import { toast } from "react-toastify";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-// import background from '/images/Subtract2.png'
 
 function LoginForm() {
     const { pathname } = useLocation();
@@ -11,25 +10,78 @@ function LoginForm() {
     const passwordRef = useRef();
     const { loginUser, user } = useAppContext();
     const navigate = useNavigate();
-    const LoginHandler = (e) => {
+
+    const LoginHandler = async (e) => {
         e.preventDefault();
-        const user = {
+        const userCredentials = {
             email: emailRef.current.value,
             password: passwordRef.current.value,
         };
-        if (user.email.length === 0) {
+        
+        if (userCredentials.email.length === 0) {
             toast.error("Please Enter your email");
-        } else if (user.password.length === 0) {
+            return;
+        }
+        
+        if (userCredentials.password.length === 0) {
             toast.error("Please Enter your password");
-        } else {
-            loginUser(user, pathname).then(() => navigate("/"));
+            return;
+        }
+        
+        try {
+            // انتظار تسجيل الدخول
+            const result = await loginUser(userCredentials, pathname);
+            
+            console.log("Login result:", result); // للـ debugging
+            
+            // طريقة 1: تحقق من result مباشرة
+            if (result && result.role) {
+                if (result.role === 'admin' || result.role === 'editor') {
+                    navigate("/dashboard");
+                    toast.success(`Welcome ${result.name} (${result.role})`);
+                } else {
+                    navigate("/");
+                    toast.success(`Welcome ${result.name}`);
+                }
+            } 
+            // طريقة 2: تحقق من user في context
+            else if (user && user.role) {
+                if (user.role === 'admin' || user.role === 'editor') {
+                    navigate("/dashboard");
+                    toast.success(`Welcome ${user.name} (${user.role})`);
+                } else {
+                    navigate("/");
+                    toast.success(`Welcome ${user.name}`);
+                }
+            }
+            // إذا لم يتم العثور على role
+            else {
+                console.warn("Role not found in response:", result);
+                navigate("/");
+                toast.success("Login successful!");
+            }
+            
+        } catch (error) {
+            console.error("Login error:", error);
+            toast.error("Login failed. Please check your credentials.");
         }
     };
+
     useEffect(() => {
+        // إذا كان المستخدم مسجل بالفعل عند تحميل الصفحة
         if (user) {
-            navigate("/");
+            console.log("User from context:", user);
+            
+            // انتظر قليلاً للتأكد من تحديث state
+            setTimeout(() => {
+                if (user.role === 'admin' || user.role === 'editor') {
+                    navigate("/dashboard");
+                } else {
+                    navigate("/");
+                }
+            }, 100);
         }
-    }, []);
+    }, [user, navigate]);
 
     return (
         <main
@@ -54,18 +106,6 @@ function LoginForm() {
                 <p className={`text-xl text-[#000] font-light mb-4 lg:mb-10`}>
                     Welcome onboard with us!
                 </p>
-                {/*<div className={`mb-2 lg:mb-6`}>*/}
-                {/*    <label htmlFor="name" className={'font-normal '}>Username</label>*/}
-                {/*    <input*/}
-                {/*            className={`inline-block border border-[#0577AB] focus:outline-0 w-full  rounded px-2 py-3`}*/}
-                {/*            type="text"*/}
-                {/*            name="name"*/}
-                {/*            id="name"*/}
-                {/*            placeholder={'Enter your username'}*/}
-                {/*            ref={nameInputRef}*/}
-                {/*            required*/}
-                {/*    />*/}
-                {/*</div>*/}
                 <div className={`mb-2 lg:mb-6`}>
                     <label htmlFor="email" className={"font-normal "}>
                         Email Address
@@ -80,18 +120,6 @@ function LoginForm() {
                         required
                     />
                 </div>
-                {/*<div className={`mb-2 lg:mb-6`}>*/}
-                {/*    <label htmlFor="university_code" className={'font-normal '}>University Code</label>*/}
-                {/*    <input*/}
-                {/*            className={`inline-block border border-[#0577AB] focus:outline-0 w-full  rounded px-2 py-3`}*/}
-                {/*            type="text"*/}
-                {/*            name="university_code"*/}
-                {/*            id="university_code"*/}
-                {/*            placeholder={'Enter your university code'}*/}
-                {/*            ref={uniCodeInputRef}*/}
-                {/*            required*/}
-                {/*    />*/}
-                {/*</div>*/}
                 <div className={`mb-2 lg:mb-6`}>
                     <label htmlFor="password" className={"font-normal "}>
                         Password
@@ -129,42 +157,3 @@ function LoginForm() {
 }
 
 export default LoginForm;
-
-/*
-<div className="body">
-            <div className='custom-container'>
-                <section className='img'>
-                    <img className='img2' src={'/images/Subtract2.png'} alt={'Login Image'}/>
-                </section>
-                <section className='logcontainer '>
-                    <div className='textlog'>
-                        <div className='tex1'> Log in</div>
-                        <div>
-                            Welcome on board with us !
-                        </div>
-                    </div>
-                    <form onSubmit={LoginHandler}>
-                        <div className="data">
-                            <label>Email address</label>
-                            <input type="text" ref={emailRef} required />
-                        </div>
-                        <div className="data">
-                            <label>Password</label>
-                            <input type="password" ref={passwordRef} required />
-                        </div>
-                        <div className="forgot-pass">
-                            <a href="#">Forgot Password?</a></div>
-                        <div className="btn">
-                            <div className="inner">
-                            </div>
-                            <button type="submit">login</button>
-                        </div>
-                        <div className="signup-link">
-                            New to login ?
-                            <Link to="/signup"> Register Here</Link>
-                        </div>
-                    </form>
-                </section>
-            </div>
-        </div>
-*/

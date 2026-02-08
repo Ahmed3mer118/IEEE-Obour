@@ -5,7 +5,9 @@ import {
     FETCH_EVENTS_SUCCESS, FETCH_USER_COURSES,
     GET_STUDENTS_ON_COURSE,
     LOGOUT_USER, SETUP_USER_SUCCESS, TOGGLE_SIDEBAR,
-    UPDATE_COURSE_SUCCESS
+    UPDATE_COURSE_SUCCESS,
+    FETCH_DASHBOARD_EVENTS_SUCCESS,
+    FETCH_BOOKINGS_SUCCESS
 } from "./actions.jsx";
 
 
@@ -94,6 +96,22 @@ const reducer = (state, action) => {
         return {
             ...state,
             events: action.payload.events
+        }
+    }
+
+    // Fetch Dashboard Events
+    if (action.type === FETCH_DASHBOARD_EVENTS_SUCCESS) {
+        return {
+            ...state,
+            dashboardEvents: action.payload.events
+        }
+    }
+
+    // Fetch Bookings
+    if (action.type === FETCH_BOOKINGS_SUCCESS) {
+        return {
+            ...state,
+            bookings: action.payload.bookings
         }
     }
 };

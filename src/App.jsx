@@ -1,12 +1,11 @@
 import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
 import RootLayout from "./components/RootLayout.jsx";
 import Editors from "./components/Editors/Editors.jsx";
-import News from "./components/News/News.jsx";
 import AppNews from "./App/News/News.jsx";
 import Students from "./components/Students/Students.jsx";
 import Login from "./components/Pages/Login.jsx";
 import Signup from "./components/Pages/Signup.jsx";
-import Home from "./components/Pages/Home.jsx";
+import Home from "./App/dashboard/Home.jsx";
 import AppRootLayout from "./App/common/AppRootLayout.jsx";
 import Landing from "./App/Landing/Landing.jsx";
 import Index from "./App/Courses/index.jsx";
@@ -79,10 +78,6 @@ const router = createBrowserRouter([
                 path: "editors",
                 element: <Editors />,
             },
-            // {
-            //     path: "news",
-            //     element: <News />,
-            // },
             {
                 path: "students",
                 element: <Students />,

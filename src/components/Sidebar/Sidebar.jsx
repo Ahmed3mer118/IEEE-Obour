@@ -17,7 +17,7 @@ function AsideBar() {
     const navLinkClass = `flex gap-2 w-full py-4 text-xl font-medium pl-14 pr-3 border-l-8`
     return (
         <aside  className="fixed left-0 h-full bg-white text-gray-400 w-71 space-y-6 py-7  inset-y-0 ">
-            <img src={logo} alt=""  className='m-3'/>
+            {/* <img src={logo} alt=""  className='m-3'/> */}
             <nav>
                 <div className=' '>
                     <ul className='flex flex-col gap-4 mt-32'>

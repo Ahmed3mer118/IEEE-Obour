@@ -152,11 +152,6 @@ const PostEvents = () => {
                         <EventCard key={index} {...event} />
                     ))}
                 </div>
-                {/* <div className="text-center">
-                    <button className="btn bg-[#243b53] text-[#fff] p-[10px] rounded-lg max-w-[400px] w-[300px] mx-auto mt-[20px] mb-[20px]">
-                        Learn More
-                    </button>
-                </div> */}
             </div>
         </section>
     );

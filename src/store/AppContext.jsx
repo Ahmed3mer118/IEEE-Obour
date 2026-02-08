@@ -11,6 +11,8 @@ import {
     GET_STUDENTS_ON_COURSE,
     LOGOUT_USER,
     SETUP_USER_SUCCESS, TOGGLE_SIDEBAR,
+    FETCH_DASHBOARD_EVENTS_SUCCESS,
+    FETCH_BOOKINGS_SUCCESS,
 } from './actions.jsx';
 
 const initialState = {
@@ -22,6 +24,8 @@ const initialState = {
     userToken: '',
     userCourses: null,
     events: [],
+    dashboardEvents: [],
+    bookings: [],
     showSidebar: false,
 };
 
@@ -32,20 +36,35 @@ const AppProvider = ({children}) => {
     const [state, dispatch] = useReducer(reducer, initialState);
 
     const authFetch = axios.create({
-        baseURL: 'https://ieee-osb.onrender.com/dashboard',
-        headers: {
-            'Authorization': `Bearer ${state.userToken}`,
-            'x-auth-id': `${state.user?._id}`
-        }
+        baseURL: 'http://localhost:5000/dashboard'
     });
-    // response
+
+    // Request interceptor to add auth headers dynamically
+    authFetch.interceptors.request.use(
+        (config) => {
+            const token = state.userToken || state.user?.token || '';
+            const userId = state.user?._id || '';
+            if (token) {
+                config.headers.Authorization = `Bearer ${token}`;
+            }
+            if (userId) {
+                config.headers['x-auth-id'] = userId;
+            }
+            return config;
+        },
+        (error) => {
+            return Promise.reject(error);
+        }
+    );
+
+    // Response interceptor
     authFetch.interceptors.response.use(
         (response) => {
             return response;
         },
         (error) => {
             // console.log(error.response);
-            if (error.response.status === 401) {
+            if (error.response?.status === 401) {
                 logoutUser();
             }
             return Promise.reject(error);
@@ -58,7 +77,7 @@ const AppProvider = ({children}) => {
 
     const signupUser = async user => {
         try {
-            const {data} = await axios.post('https://ieee-osb.onrender.com/users/signup', user);
+            const {data} = await axios.post('http://localhost:5000/users/signup', user);
             dispatch({
                 type: SETUP_USER_SUCCESS,
                 payload: {
@@ -77,7 +96,7 @@ const AppProvider = ({children}) => {
 
     const verifyUser = async otp => {
         try {
-            const {data} = await axios.post('https://ieee-osb.onrender.com/users/verify',
+            const {data} = await axios.post('http://localhost:5000/users/verify',
             {
                 email: JSON.parse(localStorage.getItem('userEmail')).email,
                 otp
@@ -102,7 +121,7 @@ const AppProvider = ({children}) => {
 
     const resendOptRequest = async () => {
         try {
-            const {data} = await axios.post('https://ieee-osb.onrender.com/users/resend-otp',
+            const {data} = await axios.post('http://localhost:5000/users/resend-otp',
             {
                 email: JSON.parse(localStorage.getItem('userEmail')).email
             },
@@ -118,30 +137,55 @@ const AppProvider = ({children}) => {
     }
 
     const loginUser = async (user, path) => {
-        const url = path === '/login' ? '/users/login' : path;
+        const url = '/users/login';
         try {
             if (localStorage.getItem('userEmail')) {
                 localStorage.removeItem('userEmail');
             } else {
                 localStorage.setItem('userEmail', JSON.stringify({email: user.email}));
             }
-            const {data} = await axios.post(`https://ieee-osb.onrender.com${url}`, {...user});
+            
+            const {data} = await axios.post(`http://localhost:5000${url}`, {...user});
+            
+            console.log("API Response Data:", data); // للـ debugging
+            
+            // ⚠️ المشكلة هنا: لا يتم تخزين role
+            // الحل: احفظ كامل بيانات المستخدم بما فيها role
+            const userWithRole = {
+                _id: data.data._id,
+                name: data.data.name,
+                email: data.data.email,
+                role: data.data.role, // ⚠️ هذا هو السطر المفقود!
+                isVerified: data.data.isVerified,
+                token: data.token
+            };
+            
             dispatch({
                 type: SETUP_USER_SUCCESS,
                 payload: {
-                    user: {...data.data, token: data.token}
-                } // token: data.token
+                    user: userWithRole
+                }
             });
+            
+            // احفظ في localStorage أيضًا
+            localStorage.setItem('user', JSON.stringify(userWithRole));
             localStorage.setItem('userToken', JSON.stringify({token: data.token}));
+            
             toast.success("LoggedIn Successfully");
+            
+            // أعد بيانات المستخدم الكاملة للتحقق من الـ role
+            return userWithRole;
+            
         } catch (err) {
-            toast.error(err.response.data.msg)
+            console.error("Login error:", err);
+            toast.error(err.response?.data?.msg || "Login failed");
+            throw err;
         }
     };
 
     const getCurrentUser = async () => {
         try {
-            const {data} = await axios.post('https://ieee-osb.onrender.com/users/currentUser', {}, {
+            const {data} = await axios.post('http://localhost:5000/users/currentUser', {}, {
                 headers: {
                     Authorization: `Bearer ${state.userToken}`
                 }
@@ -171,7 +215,7 @@ const AppProvider = ({children}) => {
 
     const registerCourse = async (courseId) => {
         try {
-            const {data} = await axios.post('https://ieee-osb.onrender.com/courses/register', {userId: state.user._id, courseId}, {
+            const {data} = await axios.post('http://localhost:5000/courses/register', {userId: state.user._id, courseId}, {
                 headers: {
                     Authorization: `Bearer ${state.user.token}`
                 }
@@ -186,7 +230,7 @@ const AppProvider = ({children}) => {
     // const getUserCourses = async () => {
     //     try {
     //         // console.log(state);
-    //         const {data} = await axios.get('https://ieee-osb.onrender.com/courses/userCourses', {
+    //         const {data} = await axios.get('http://localhost:5000/courses/userCourses', {
     //             headers: {
     //                 Authorization: `Bearer ${state.user.token}`
     //             }
@@ -205,7 +249,7 @@ const AppProvider = ({children}) => {
     const getAllCourses = async () => {
         // const token = `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NTBiMDFiYjhlMTJmODMzNWE4ODk0NjIiLCJpYXQiOjE2OTUzMjMzOTIsImV4cCI6MTY5NTM1MjE5Mn0.rmRFexI2orJzPKhStUzPMyksNi7R9j6iG588qmpfkLw`
         try {
-            const {data} = await axios('https://ieee-osb.onrender.com/courses');
+            const {data} = await axios('http://localhost:5000/courses');
             dispatch({
                 type: FETCH_COURSES_SUCCESS,
                 payload: {courses: data.data}
@@ -272,7 +316,7 @@ const AppProvider = ({children}) => {
 
     // const getCourseTasks = async (courseId) => {
     //     try {
-    //         const {data} = await axios.get('https://ieee-osb.onrender.com/courses/courseTasks', {
+    //         const {data} = await axios.get('http://localhost:5000/courses/courseTasks', {
     //             headers: {
     //                 Authorization: `Bearer ${state.user.token}`
     //             },
@@ -284,7 +328,7 @@ const AppProvider = ({children}) => {
     //     } catch (err) {
     //         console.log(err.response.data.msg);
     //     }
-    //     // https://ieee-osb.onrender.com
+    //     // http://localhost:5000
     // }
 
     // AddContent
@@ -360,7 +404,7 @@ const AppProvider = ({children}) => {
     // Get Events
     const getEvents = async () => {
         try {
-            const {data} = await authFetch.get(`https://ieee-osb.onrender.com/users/events`);
+            const {data} = await authFetch.get(`http://localhost:5000/users/events`);
             dispatch({
                 type: FETCH_EVENTS_SUCCESS,
                 payload: {events: data.data}
@@ -390,8 +434,129 @@ const AppProvider = ({children}) => {
 
     // Remove Event -- Does not exist in the API
 
+    // Dashboard Events Management
+    const getDashboardEvents = async () => {
+        try {
+            const {data} = await authFetch.get('/events');
+            dispatch({
+                type: FETCH_DASHBOARD_EVENTS_SUCCESS,
+                payload: {events: data.data}
+            });
+        } catch (err) {
+            toast.error(err.response?.data?.msg || 'Error fetching events');
+        }
+    }
+
+    const createDashboardEvent = async event => {
+        try {
+            const {data} = await authFetch.post('/createEvent', event);
+            dispatch({
+                type: FETCH_DASHBOARD_EVENTS_SUCCESS,
+                payload: {events: data.data}
+            });
+            toast.success(data.msg || 'Event created successfully');
+        } catch (err) {
+            toast.error(err.response?.data?.msg || 'Error creating event');
+        }
+    }
+
+    const updateDashboardEvent = async (eventId, eventData) => {
+        try {
+            const {data} = await authFetch.patch(`/updateEvent/${eventId}`, eventData);
+            dispatch({
+                type: FETCH_DASHBOARD_EVENTS_SUCCESS,
+                payload: {events: data.data}
+            });
+            toast.success(data.msg || 'Event updated successfully');
+        } catch (err) {
+            toast.error(err.response?.data?.msg || 'Error updating event');
+        }
+    }
+
+    const deleteDashboardEvent = async eventId => {
+        try {
+            const {data} = await authFetch.delete(`/deleteEvent/${eventId}`);
+            dispatch({
+                type: FETCH_DASHBOARD_EVENTS_SUCCESS,
+                payload: {events: data.data}
+            });
+            toast.success(data.msg || 'Event deleted successfully');
+        } catch (err) {
+            toast.error(err.response?.data?.msg || 'Error deleting event');
+        }
+    }
+
+    // Dashboard Bookings Management
+    const getDashboardBookings = async (eventId = null) => {
+        try {
+            const url = eventId ? `/bookings/${eventId}` : '/bookings';
+            const {data} = await authFetch.get(url);
+            dispatch({
+                type: FETCH_BOOKINGS_SUCCESS,
+                payload: {bookings: data.data}
+            });
+        } catch (err) {
+            toast.error(err.response?.data?.msg || 'Error fetching bookings');
+        }
+    }
+
+    const updateBookingPayment = async (bookingId, paymentData) => {
+        try {
+            const {data} = await authFetch.patch(`/bookings/${bookingId}/payment`, paymentData);
+            getDashboardBookings(); // Refresh bookings list
+            toast.success(data.msg || 'Payment status updated successfully');
+        } catch (err) {
+            toast.error(err.response?.data?.msg || 'Error updating payment status');
+        }
+    }
+
+    const deleteBooking = async bookingId => {
+        try {
+            const {data} = await authFetch.delete(`/bookings/${bookingId}`);
+            getDashboardBookings(); // Refresh bookings list
+            toast.success(data.msg || 'Booking deleted successfully');
+        } catch (err) {
+            toast.error(err.response?.data?.msg || 'Error deleting booking');
+        }
+    }
 
     useEffect(() => {
+        // Load token from localStorage if available
+        const storedUser = localStorage.getItem('user');
+        const storedToken = localStorage.getItem('userToken');
+        
+        if (storedUser && !state.user) {
+            try {
+                const userData = JSON.parse(storedUser);
+                if (userData.token) {
+                    dispatch({
+                        type: SETUP_USER_SUCCESS,
+                        payload: {
+                            user: userData,
+                            token: userData.token
+                        }
+                    });
+                }
+            } catch (err) {
+                console.error('Error parsing stored user:', err);
+            }
+        } else if (storedToken && !state.userToken) {
+            try {
+                const tokenData = JSON.parse(storedToken);
+                if (tokenData.token && state.user) {
+                    dispatch({
+                        type: SETUP_USER_SUCCESS,
+                        payload: {
+                            user: state.user,
+                            token: tokenData.token
+                        }
+                    });
+                }
+            } catch (err) {
+                console.error('Error parsing stored token:', err);
+            }
+        }
+        
         // getCurrentUser().then(() => {
         //     getUserCourses();
         // });
@@ -420,7 +585,15 @@ const AppProvider = ({children}) => {
         getEvents,
         createEvent,
         getStudentsOnCourse,
-        toggleSidebar
+        toggleSidebar,
+        // Dashboard functions
+        getDashboardEvents,
+        createDashboardEvent,
+        updateDashboardEvent,
+        deleteDashboardEvent,
+        getDashboardBookings,
+        updateBookingPayment,
+        deleteBooking
     };
     return (
         <AppContext.Provider value={value}>
